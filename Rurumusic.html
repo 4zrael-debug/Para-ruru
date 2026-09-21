@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Ruru 🌻</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, #fffde7, transparent 30%),
+        radial-gradient(circle at 80% 80%, #ffe082, transparent 35%),
+        linear-gradient(135deg, #fff8d6, #fff3b0);
+
+    position: relative;
+}
+
+/* -------------------------
+   PANTALLA DE ENTRADA
+------------------------- */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #fff8d6, #ffe082);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: 1.2s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+}
+
+.intro-content {
+    text-align: center;
+    animation: introAppear 1.5s ease;
+}
+
+.intro-flower {
+    font-size: 90px;
+    animation: flowerFloat 2s ease-in-out infinite;
+}
+
+.intro h2 {
+    color: #d89400;
+    font-size: 2rem;
+    margin: 15px 0;
+}
+
+.intro p {
+    color: #795548;
+    margin-bottom: 25px;
+}
+
+.start-button {
+    border: none;
+    padding: 15px 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ffd54f, #f9a825);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(249,168,37,.35);
+    transition: .3s;
+}
+
+.start-button:hover {
+    transform: scale(1.08);
+}
+
+@keyframes introAppear {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes flowerFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+/* -------------------------
+   FONDO
+------------------------- */
+
+.sparkle {
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    opacity: 0;
+    animation: sparkle 3s infinite ease-in-out;
+}
+
+.s1 { top: 12%; left: 15%; }
+.s2 { top: 22%; right: 15%; animation-delay: 1s; }
+.s3 { bottom: 18%; left: 18%; animation-delay: 2s; }
+.s4 { bottom: 12%; right: 18%; animation-delay: 1.5s; }
+
+@keyframes sparkle {
+    0%,100% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* -------------------------
+   TARJETA
+------------------------- */
+
+.card {
+    width: min(90%, 530px);
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 45px 35px;
+    text-align: center;
+
+    background: rgba(255,255,255,.94);
+
+    border: 2px solid #f6c945;
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 60px rgba(121,91,0,.22);
+
+    position: relative;
+    z-index: 5;
+
+    opacity: 0;
+    transform: translateY(50px) scale(.85);
+}
+
+.card.show {
+    animation: cardEntrance 1.5s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes cardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(70px) scale(.8) rotate(-2deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.03) rotate(1deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0);
+    }
+}
+
+/* -------------------------
+   FLORES
+------------------------- */
+
+.flowers {
+    font-size: 72px;
+    display: inline-block;
+    animation: flowers 3s ease-in-out infinite;
+}
+
+@keyframes flowers {
+    0%,100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg) translateY(-6px);
+    }
+}
+
+h1 {
+    color: #e8a900;
+    font-size: 2.7rem;
+    margin: 8px 0;
+}
+
+.subtitle {
+    color: #8d6e63;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* -------------------------
+   BOTÓN POEMA
+------------------------- */
+
+button {
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #ffd54f, #f9a825);
+
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    box-shadow: 0 7px 18px rgba(249,168,37,.3);
+
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.07);
+}
+
+/* -------------------------
+   POEMA
+------------------------- */
+
+.poem {
+    display: none;
+    margin-top: 30px;
+    color: #5d4037;
+    line-height: 1.8;
+    font-size: 1.06rem;
+}
+
+.poem.show {
+    display: block;
+    animation: poemAppear 1.2s ease;
+}
+
+@keyframes poemAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.signature {
+    color: #a1887f;
+    font-style: italic;
+}
+
+/* -------------------------
+   CONTROL DE MÚSICA
+------------------------- */
+
+.music-button {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+    padding: 0;
+
+    font-size: 20px;
+
+    z-index: 20;
+
+    display: none;
+}
+
+/* -------------------------
+   FLORES CAYENDO
+------------------------- */
+
+.petal {
+    position: absolute;
+    top: -50px;
+    font-size: 22px;
+    z-index: 1;
+
+    animation: fall linear infinite;
+}
+
+.p1 { left: 8%; animation-duration: 7s; }
+.p2 { left: 25%; animation-duration: 9s; animation-delay: 2s; }
+.p3 { left: 45%; animation-duration: 8s; animation-delay: 1s; }
+.p4 { left: 65%; animation-duration: 10s; animation-delay: 3s; }
+.p5 { left: 82%; animation-duration: 7s; animation-delay: 1.5s; }
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* -------------------------
+   CELULAR
+------------------------- */
+
+@media (max-width: 500px) {
+
+    .card {
+        padding: 35px 22px;
+        max-height: 85vh;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .flowers {
+        font-size: 62px;
+    }
+
+    .poem {
+        font-size: 1rem;
+    }
+
+    .intro-flower {
+        font-size: 75px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- -------------------------
+     PANTALLA INICIAL
+-------------------------- -->
+
+<div class="intro" id="intro">
+
+    <div class="intro-content">
+
+        <div class="intro-flower">🌻</div>
+
+        <h2>Hay algo para ti...</h2>
+
+        <p>
+            Una pequeña sorpresa hecha<br>
+            especialmente para Ruru 💛
+        </p>
+
+        <button class="start-button" onclick="entrar()">
+            ✨ Abrir sorpresa ✨
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- -------------------------
+     MÚSICA
+-------------------------- -->
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- BOTÓN DE MÚSICA -->
+
+<button
+    class="music-button"
+    id="musicButton"
+    onclick="toggleMusic()"
+>
+    🔊
+</button>
+
+
+<!-- -------------------------
+     BRILLITOS
+-------------------------- -->
+
+<div class="sparkle s1">✦</div>
+<div class="sparkle s2">✧</div>
+<div class="sparkle s3">✦</div>
+<div class="sparkle s4">✧</div>
+
+
+<!-- -------------------------
+     PÉTALOS
+-------------------------- -->
+
+<div class="petal p1">🌼</div>
+<div class="petal p2">🌻</div>
+<div class="petal p3">🌼</div>
+<div class="petal p4">🌻</div>
+<div class="petal p5">🌼</div>
+
+
+<!-- -------------------------
+     TARJETA
+-------------------------- -->
+
+<div class="card" id="card">
+
+    <div class="flowers">
+        🌻🌼🌻
+    </div>
+
+    <h1>Para Ruru 💛</h1>
+
+    <div class="subtitle">
+        Un pequeño detalle hecho especialmente para ti...
+    </div>
+
+    <button onclick="mostrarPoema()">
+        🌻 Abrir mi regalo 🌻
+    </button>
+
+
+    <!-- -------------------------
+         POEMA
+    -------------------------- -->
+
+    <div class="poem" id="poema">
+
+        <p>
+            Ruru, si pudiera regalarte el cielo,<br>
+            escogería la estrella que más brilla,<br>
+            pero como ninguna parece suficiente,<br>
+            te regalo un jardín lleno de maravillas. 🌻
+        </p>
+
+        <p>
+            Te regalo flores amarillas,<br>
+            para iluminar tus días,<br>
+            para que cuando el mundo esté nublado,<br>
+            recuerdes que siempre existen alegrías.
+        </p>
+
+        <p>
+            Y aunque estas flores sean virtuales,<br>
+            hay algo que sí es completamente real:<br>
+            el deseo de que sonrías mucho<br>
+            y que cada día te trate un poquito mejor.
+        </p>
+
+        <p>
+            Porque algunas personas llegan<br>
+            y hacen bonito cualquier momento,<br>
+            y tú, Ruru, eres de esas personas<br>
+            que merecen un poquito de magia. ✨
+        </p>
+
+        <p class="signature">
+            Con mucho cariño,<br>
+            alguien que quería regalarte<br>
+            un pedacito de sol. 🌻💛
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* -------------------------
+   ENTRAR A LA PÁGINA
+-------------------------- */
+
+function entrar() {
+
+    const intro = document.getElementById("intro");
+    const card = document.getElementById("card");
+    const musica = document.getElementById("musica");
+    const musicButton = document.getElementById("musicButton");
+
+    /* Reproducir música */
+    musica.play().catch(() => {});
+
+    /* Ocultar pantalla inicial */
+    intro.classList.add("hide");
+
+    /* Mostrar tarjeta */
+    setTimeout(() => {
+        card.classList.add("show");
+    }, 400);
+
+    /* Mostrar control de música */
+    musicButton.style.display = "block";
+}
+
+
+/* -------------------------
+   MOSTRAR POEMA
+-------------------------- */
+
+function mostrarPoema() {
+
+    const poema = document.getElementById("poema");
+    const boton = document.querySelector(".card button");
+
+    poema.classList.add("show");
+
+    boton.innerHTML = "💛 Para ti, Ruru 💛";
+
+    crearCorazones();
+}
+
+
+/* -------------------------
+   CONTROL DE MÚSICA
+-------------------------- */
+
+function toggleMusic() {
+
+    const musica = document.getElementById("musica");
+    const boton = document.getElementById("musicButton");
+
+    if (musica.paused) {
+
+        musica.play();
+
+        boton.innerHTML = "🔊";
+
+    } else {
+
+        musica.pause();
+
+        boton.innerHTML = "🔇";
+    }
+}
+
+
+/* -------------------------
+   CORAZONES
+-------------------------- */
+
+function crearCorazones() {
+
+    for (let i = 0; i < 20; i++) {
+
+        const corazon = document.createElement("div");
+
+        corazon.innerHTML = "💛";
+
+        corazon.style.position = "fixed";
+        corazon.style.left = Math.random() * 100 + "vw";
+        corazon.style.bottom = "-30px";
+        corazon.style.fontSize =
+            (15 + Math.random() * 20) + "px";
+
+        corazon.style.zIndex = "30";
+        corazon.style.pointerEvents = "none";
+
+        document.body.appendChild(corazon);
+
+        const duracion = 2 + Math.random() * 3;
+
+        corazon.animate(
+            [
+                {
+                    transform: "translateY(0) rotate(0deg)",
+                    opacity: 1
+                },
+
+                {
+                    transform:
+                        `translateY(-${window.innerHeight + 100}px)
+                         rotate(${Math.random() * 360}deg)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: duracion * 1000,
+                easing: "ease-out"
+            }
+        );
+
+        setTimeout(() => {
+            corazon.remove();
+        }, duracion * 1000);
+    }
+}
+
+</script>
+
+</body>
+</html>
